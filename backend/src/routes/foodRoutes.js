@@ -1,0 +1,13 @@
+import { Router } from 'express';
+import { body } from 'express-validator';
+import { createFood, deleteFood, listFoods, updateFood } from '../controllers/foodController.js';
+import { adminOnly, protect } from '../middleware/authMiddleware.js';
+import { upload } from '../middleware/uploadMiddleware.js';
+import { validate } from '../middleware/validate.js';
+const router = Router();
+const rules = [body('restaurant_id').isInt(), body('name').notEmpty(), body('description').notEmpty(), body('category').notEmpty(), body('price').isFloat({ min: 1 })];
+router.get('/', listFoods);
+router.post('/', protect, adminOnly, upload.single('image'), rules, validate, createFood);
+router.put('/:id', protect, adminOnly, upload.single('image'), rules, validate, updateFood);
+router.delete('/:id', protect, adminOnly, deleteFood);
+export default router;

@@ -1,0 +1,1 @@
+export default function Footer(){return <footer className="mt-16 bg-monsoon-blue px-6 py-10 text-center text-white"><p className="text-2xl font-black">MonsoonBites</p><p className="mt-2 text-blue-100">Rain-ready delivery for warm Indian comfort food.</p></footer>}

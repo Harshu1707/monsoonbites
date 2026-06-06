@@ -1,0 +1,1 @@
+export default { content: ['./index.html','./src/**/*.{js,jsx}'], theme: { extend: { colors: { monsoon: { blue: '#0F4C81', cloud: '#E5E7EB', green: '#3FA796' } }, boxShadow: { glass: '0 20px 60px rgba(15,76,129,.18)' } } }, plugins: [] };

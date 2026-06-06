@@ -1,0 +1,1 @@
+import{CloudRain}from'lucide-react';export default function LoadingSpinner(){return <div className="flex h-64 items-center justify-center"><CloudRain className="h-12 w-12 animate-bounce text-monsoon-green"/></div>}

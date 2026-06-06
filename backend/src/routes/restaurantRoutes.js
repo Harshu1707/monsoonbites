@@ -1,0 +1,15 @@
+import { Router } from 'express';
+import { body } from 'express-validator';
+import { createRestaurant, createReview, deleteRestaurant, getRestaurant, listRestaurants, updateRestaurant } from '../controllers/restaurantController.js';
+import { adminOnly, protect } from '../middleware/authMiddleware.js';
+import { upload } from '../middleware/uploadMiddleware.js';
+import { validate } from '../middleware/validate.js';
+const router = Router();
+const rules = [body('name').notEmpty(), body('description').notEmpty(), body('address').notEmpty()];
+router.get('/', listRestaurants);
+router.get('/:id', getRestaurant);
+router.post('/', protect, adminOnly, upload.single('image'), rules, validate, createRestaurant);
+router.put('/:id', protect, adminOnly, upload.single('image'), rules, validate, updateRestaurant);
+router.delete('/:id', protect, adminOnly, deleteRestaurant);
+router.post('/:id/reviews', protect, [body('rating').isInt({ min: 1, max: 5 }), body('comment').trim().isLength({ min: 2 })], validate, createReview);
+export default router;
