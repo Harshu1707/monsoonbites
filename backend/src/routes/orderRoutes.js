@@ -1,0 +1,11 @@
+import { Router } from 'express';
+import { body } from 'express-validator';
+import { checkout, getOrders, updateOrderStatus } from '../controllers/orderController.js';
+import { adminOnly, protect } from '../middleware/authMiddleware.js';
+import { validate } from '../middleware/validate.js';
+const router = Router();
+router.use(protect);
+router.get('/', getOrders);
+router.post('/checkout', [body('delivery_address').trim().isLength({ min: 8 })], validate, checkout);
+router.patch('/:id/status', adminOnly, [body('status').isIn(['Pending','Preparing','Out for Delivery','Delivered'])], validate, updateOrderStatus);
+export default router;

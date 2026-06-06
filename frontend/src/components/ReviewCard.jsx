@@ -1,0 +1,1 @@
+export default function ReviewCard({review}){return <div className="rounded-2xl bg-white p-4 shadow"><b>{review.user_name}</b><p className="text-monsoon-green">{'★'.repeat(review.rating)}</p><p className="text-gray-600">{review.comment}</p></div>}

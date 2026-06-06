@@ -1,0 +1,12 @@
+import { Router } from 'express';
+import { body } from 'express-validator';
+import { addToCart, getCart, removeCartItem, updateCartItem } from '../controllers/cartController.js';
+import { protect } from '../middleware/authMiddleware.js';
+import { validate } from '../middleware/validate.js';
+const router = Router();
+router.use(protect);
+router.get('/', getCart);
+router.post('/', [body('food_id').isInt(), body('quantity').optional().isInt({ min: 1 })], validate, addToCart);
+router.put('/:id', [body('quantity').isInt({ min: 0 })], validate, updateCartItem);
+router.delete('/:id', removeCartItem);
+export default router;
